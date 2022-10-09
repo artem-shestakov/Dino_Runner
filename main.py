@@ -17,11 +17,15 @@ pygame.display.set_caption("Runner game")
 game_font = pygame.font.Font('fonts/arcade_classic.ttf', FONT_SIZE)
 
 # Sprites
-sprites_sheet = Spritesheet('./graphics/sprite.png')
-dino = sprites_sheet.get_sprite(1338, 2, 88, 94)
-ground = sprites_sheet.get_sprite(2, 104, 2400, 24)
-score = game_font.render('00000', False, (83, 83, 83))
+backgrounds = Spritesheet('./graphics/backgrounds.png')
+background = backgrounds.get_sprite(0, 0, 231, 63)
+background = pygame.transform.scale(background, (800, 300))
 
+sprite_sheets = Spritesheet('./graphics/spritesheet.png')
+ground = sprite_sheets.get_sprite(72, 96, 20, 20)
+ground = pygame.transform.scale(ground, (100, 100))
+
+player = pygame.image.load('graphics/player/alienGreen_stand.png')
 
 while True:
     # Check events
@@ -31,9 +35,11 @@ while True:
             exit()
 
     # Draw objects
-    screen.blit(dino,(0, HEIGHT - 98))
-    screen.blit(ground, (0, HEIGHT - 28))
-    screen.blit(score, (WIDTH - 100, 10))
+    screen.blit(background, (0,0))
+    for x in range(0,800,100):
+        screen.blit(ground, (x, 300))
+    screen.blit(player, (50, 300-92))
+
     # Update display
     pygame.display.update()
     clock.tick(60)
